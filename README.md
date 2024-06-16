@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./src/assets/images/chat-app-icon.webp" alt="tg chat classification appы" width="100"/>
+<img src="./src/assets/images/chat-app-icon.webp" alt="tg chat classification app" width="100"/>
 
 # Telegram channel classification
 
@@ -19,7 +19,6 @@ Chat app for text with NLP bots for classification telegram channel name by mess
 - axios
 - styled-components
 - MUI
-- lodash.debounce
 - chart.js
 
 ## Config app
@@ -81,7 +80,7 @@ alias.bat
 Install all dependencies
 
 ```sh
-cd autoexpert-frontend
+cd telegram-channel-classification-frontend
 pn i
 ```
 

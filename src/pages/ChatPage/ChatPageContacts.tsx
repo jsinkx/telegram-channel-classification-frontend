@@ -1,46 +1,57 @@
-import moment from 'moment'
+import { useDispatch } from 'react-redux'
+
+import { Status } from '@shared/status'
+
+import { setActiveChatWithContact } from '@redux/slices/chats/slice'
+import { selectContacts } from '@redux/slices/contacts/selectors'
+
+import useAppSelector from '@hooks/useAppSelector'
 
 import { Contact } from '@components/Contact/Contact'
 
-const CONTACTS = [
-	{
-		id: 1,
-		name: 'LSTM',
-		isBot: true,
-		lastMessage: 'Добро пожаловать в бота!',
-		time: moment(),
-		isActive: true,
-	},
-	{
-		id: 2,
-		name: 'LSTM',
-		isBot: true,
-		lastMessage: 'Добро пожаловать в бота!',
-		time: moment(),
-	},
-	{
-		id: 3,
-		name: 'LSTM',
-		isBot: true,
-		lastMessage: 'Добро пожаловать в бота!',
-		time: moment(),
-	},
-]
+import { Alert } from '@mui/material'
+
+import { Contact as ContactType } from '@entities/contact.type'
+
+const CONTACTS_LOADING: ContactType[] = Array({ length: 3 }).map((_, index) => ({
+	id: index,
+	name: '',
+	ru_name: '',
+	isBot: true,
+}))
 
 export const ChatPageContacts = () => {
+	const dispatch = useDispatch()
+
+	const { statusContacts, messageContacts, contacts: _contacts } = useAppSelector(selectContacts)
+
+	const isContactsError = statusContacts === Status.ERROR
+	const isContactsLoading = statusContacts === Status.LOADING
+
+	const contacts = isContactsLoading ? CONTACTS_LOADING : _contacts
+
+	const handleClickSelectContact = (contact: ContactType) => () => {
+		dispatch(setActiveChatWithContact(contact))
+	}
+
+	if (isContactsError) return <Alert> {messageContacts} </Alert>
+
 	return (
 		<nav className="chat-window__contacts">
-			<h3 className="chat-window__contacts__title"> Чат </h3>
-			{CONTACTS.map((contact) => (
-				<Contact
-					key={contact.id}
-					username={contact.name}
-					isBot={contact.isBot}
-					lastMessage={contact.lastMessage}
-					lastMessageTime={moment(contact.time)}
-					className={`chat-window__contacts__contact ${contact?.isActive && 'chat-window__contacts__contact--active'}`}
-				/>
-			))}
+			<h3 className="chat-window__contacts__title"> Чаты </h3>
+			{contacts.map((contact) => {
+				const { id, name, isBot } = contact
+				return (
+					<Contact
+						key={id}
+						username={name}
+						isBot={isBot}
+						isLoading={isContactsLoading}
+						onClick={handleClickSelectContact(contact)}
+						className={`chat-window__contacts__contact ${false && 'chat-window__contacts__contact--active'}`}
+					/>
+				)
+			})}
 		</nav>
 	)
 }

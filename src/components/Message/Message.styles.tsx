@@ -25,7 +25,12 @@ export const StyledMessage = styled.div<StyledMessageProps>`
 	.message__textMessage {
 		padding: 15px;
 		display: inline-flex;
+		flex-direction: column;
 		border-radius: 6px;
 		background-color: ${Colors.DARK_BLUE_ELEMENT_BACKGROUND};
+
+		&__attachment--chart {
+			margin-top: 15px;
+		}
 	}
 `

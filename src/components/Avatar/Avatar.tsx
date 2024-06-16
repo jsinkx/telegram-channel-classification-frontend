@@ -10,7 +10,7 @@ type AvatarProps = {
 } & ComponentPropsWithoutRef<'div'>
 
 export const Avatar: FC<AvatarProps> = memo(({ username = '', isDisplayStatus = false, ...props }) => {
-	const avatarName = username.slice(0, 2)
+	const avatarName = username.slice(0, 2).toUpperCase()
 
 	return (
 		<StyledAvatar $username={username} {...props}>

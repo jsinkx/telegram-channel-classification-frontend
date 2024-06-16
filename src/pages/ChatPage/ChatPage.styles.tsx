@@ -25,7 +25,7 @@ export const StyledChatPage = styled.div`
 	.chat-window {
 		width: 60%;
 		min-height: 500px;
-		margin-top: 15vh;
+		margin-top: 5vh;
 		margin-inline: auto;
 		display: flex;
 		background-color: ${Colors.DARK_BLUE_BACKGROUND_HIGHLIGHT};
@@ -85,7 +85,7 @@ export const StyledChatPage = styled.div`
 
 			&__messages-history {
 				height: 100%;
-				max-height: 400px;
+				max-height: 700px;
 				overflow-y: scroll;
 				/* border: 1px solid green; */
 
