@@ -21,6 +21,8 @@ type MessageProps = {
 	isLoading?: boolean
 } & ComponentPropsWithoutRef<'div'>
 
+const TYPING_ANIMATION_SEQUENCE = ['...', 100, '..', 100, '.', 100, '...', 100]
+
 export const Message: FC<MessageProps> = ({
 	username,
 	createdAt,
@@ -37,18 +39,15 @@ export const Message: FC<MessageProps> = ({
 		<StyledMessage $isMe={!!isMe} {...props}>
 			<div className="message__user-info">
 				{!isMe && <Avatar username={username || ''} className="message__user-info__avatar-image" />}
-				{!isMe && (
-					<p className="message__user-info__username">
-						<b>{username}</b>
-						{!isLoading && <>, {createdAt?.format(momentFormat)}</>}
-					</p>
-				)}
+				<p className={`message__user-info__username ${isMe && 'message__user-info__username--me'}`}>
+					{!isMe && <b>{username}, </b>}
+					{!isLoading && createdAt?.format(momentFormat)}
+				</p>
 			</div>
-			{isMe && <p className="message__time"> {createdAt?.format(momentFormat)}</p>}
 			<div className="message__textMessage">
 				{isLoading ? (
 					<TypeAnimation
-						sequence={['...', 100, '..', 100, '.', 100, '...', 100]}
+						sequence={TYPING_ANIMATION_SEQUENCE}
 						speed={50}
 						style={{ fontSize: '2em' }}
 						repeat={Infinity}

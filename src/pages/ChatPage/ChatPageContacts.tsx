@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux'
 
 import { Status } from '@shared/status'
 
+import { selectChats } from '@redux/slices/chats/selectors'
 import { setActiveChatWithContact } from '@redux/slices/chats/slice'
 import { selectContacts } from '@redux/slices/contacts/selectors'
 
@@ -24,6 +25,7 @@ export const ChatPageContacts = () => {
 	const dispatch = useDispatch()
 
 	const { statusContacts, messageContacts, contacts: _contacts } = useAppSelector(selectContacts)
+	const { activeChatWithContact } = useAppSelector(selectChats)
 
 	const isContactsError = statusContacts === Status.ERROR
 	const isContactsLoading = statusContacts === Status.LOADING
@@ -41,6 +43,8 @@ export const ChatPageContacts = () => {
 			<h3 className="chat-window__contacts__title"> Чаты </h3>
 			{contacts.map((contact) => {
 				const { id, name, isBot } = contact
+				const selectedContactId = activeChatWithContact?.id
+
 				return (
 					<Contact
 						key={id}
@@ -48,7 +52,7 @@ export const ChatPageContacts = () => {
 						isBot={isBot}
 						isLoading={isContactsLoading}
 						onClick={handleClickSelectContact(contact)}
-						className={`chat-window__contacts__contact ${false && 'chat-window__contacts__contact--active'}`}
+						className={`chat-window__contacts__contact ${selectedContactId === id && 'chat-window__contacts__contact--active'}`}
 					/>
 				)
 			})}

@@ -16,13 +16,17 @@ export const StyledMessage = styled.div<StyledMessageProps>`
 		&__avatar-image {
 			margin-right: 10px;
 		}
-	}
 
-	.message__time {
-		margin-right: 7px;
+		&__username {
+			&--me {
+				margin-right: 1px;
+				margin-bottom: 3px;
+			}
+		}
 	}
 
 	.message__textMessage {
+		max-width: 90%;
 		padding: 15px;
 		display: inline-flex;
 		flex-direction: column;

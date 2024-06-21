@@ -1,1 +1,1 @@
-export const TelegramChannelsLabels = ['Автобатя', 'аэрофлот', 'Телеграмма РЖЛ']
+export const TelegramChannelsLabels = ['АВТО БАТЯ', 'Аэрофлот', 'Телеграмма РЖЛ']

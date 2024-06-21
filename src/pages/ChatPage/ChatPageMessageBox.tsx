@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useRef } from 'react'
+import { ChangeEventHandler, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import moment from 'moment'
@@ -28,6 +28,8 @@ export const ChatPageMessageBox = () => {
 
 	const { status, activeChatWithContact, messagesWithContact } = useAppSelector(selectChats)
 
+	const [isShiftPressedInputMessage, setIsShiftPressedInputMessage] = useState(false)
+
 	const isChatOpened = activeChatWithContact !== null
 	const currentContact = activeChatWithContact?.name ? messagesWithContact[activeChatWithContact.id]! : null
 
@@ -46,8 +48,18 @@ export const ChatPageMessageBox = () => {
 	}
 
 	const handleKeyDownInputMessage = (event: React.KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === 'Enter' && sendMessageButtonRef.current) {
-			sendMessageButtonRef.current.click()
+		if (!isShiftPressedInputMessage) {
+			if (event.key === 'Shift') setIsShiftPressedInputMessage(true)
+
+			if (event.key === 'Enter' && sendMessageButtonRef.current) {
+				sendMessageButtonRef.current.click()
+			}
+		}
+	}
+
+	const handleKeyUpInputMessage = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === 'Shift') {
+			setIsShiftPressedInputMessage(false)
 		}
 	}
 
@@ -113,12 +125,22 @@ export const ChatPageMessageBox = () => {
 					</div>
 					<div className="chat-window__chat__input-message">
 						<WhiteBorderTextField
+							fullWidth
+							multiline
+							rows={currentContact?.messageDraft.trim() === '' ? 1 : 4}
 							value={currentContact?.messageDraft || ''}
 							onChange={handleChangeInputMessage}
 							onKeyDown={handleKeyDownInputMessage}
-							fullWidth
+							onKeyUp={handleKeyUpInputMessage}
 							placeholder="Введите сообщение"
 							className="chat-window__chat__input-message__textfield"
+							sx={{
+								'& .MuiInputBase-root': {
+									height: '100%',
+									display: 'flex',
+									alignItems: 'start',
+								},
+							}}
 						/>
 						<IconButton
 							ref={sendMessageButtonRef}

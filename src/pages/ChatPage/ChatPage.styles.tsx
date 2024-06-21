@@ -10,6 +10,7 @@ export const WhiteBorderTextField = styled(TextField)`
 	& label.Mui-focused {
 		color: ${Colors.WHITE_SELECTION};
 	}
+
 	& .MuiOutlinedInput-root {
 		&.Mui-focused fieldset {
 			border-color: ${Colors.WHITE_SELECTION};
@@ -23,7 +24,7 @@ export const StyledChatPage = styled.div`
 	justify-content: center;
 
 	.chat-window {
-		width: 60%;
+		width: 90%;
 		min-height: 500px;
 		margin-top: 5vh;
 		margin-inline: auto;
@@ -36,8 +37,9 @@ export const StyledChatPage = styled.div`
 			border-right: 2px solid ${BORDER_COLOR};
 
 			&__title {
+				height: 40px;
 				margin-block: 0;
-				padding-block: 20px 10px;
+				padding-block: 20px 0;
 				padding-left: 20px;
 				font-size: 1.3em;
 				border-bottom: 2px solid ${BORDER_COLOR};
@@ -65,7 +67,6 @@ export const StyledChatPage = styled.div`
 			min-height: 100%;
 			display: flex;
 			flex-direction: column;
-			/* border: 1px solid red; */
 
 			&__select-chat {
 				width: 90%;
@@ -87,7 +88,6 @@ export const StyledChatPage = styled.div`
 				height: 100%;
 				max-height: 700px;
 				overflow-y: scroll;
-				/* border: 1px solid green; */
 
 				&__message {
 					margin-block: 25px;
@@ -95,20 +95,20 @@ export const StyledChatPage = styled.div`
 
 					&--me {
 						display: flex;
+						flex-direction: column;
 						justify-content: flex-end;
+						align-items: flex-end;
 					}
 				}
 			}
 
 			&__input-message {
-				height: 60px;
 				padding: 10px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				flex: 1 0 auto;
 				border-top: 2px solid ${BORDER_COLOR};
-				/* border: 1px solid blue; */
 
 				&__textfield {
 				}
